@@ -3,40 +3,47 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
 
   [SerializeField] private float speed = 1f;
+  [SerializeField] private float attackRange = 2f;
   private Rigidbody2D rb2d;
 
   private Transform player;
 
-  // Start is called before the first frame update
-  void Start() {
+  private void Start() {
     this.rb2d = this.GetComponent<Rigidbody2D>();
   }
 
-  // Update is called once per frame
-  void FixedUpdate() {
+  private void FixedUpdate() {
     if (this.player) {
       Vector2 movementVector = (Vector2)this.player.position - this.rb2d.position;
-      movementVector = movementVector.normalized * (this.speed * Time.fixedDeltaTime);
 
-      this.rb2d.MovePosition(this.rb2d.position + movementVector);
+      if (movementVector.sqrMagnitude <= this.attackRange * this.attackRange) {
+        Debug.LogError("Attacking");
+      } else {
+        movementVector = movementVector.normalized * (this.speed * Time.fixedDeltaTime);
+        this.rb2d.MovePosition(this.rb2d.position + movementVector);
+      }
     }
   }
 
-  private void OnTriggerEnter2D(Collider2D other) {
-    if (!other.CompareTag("Player")) {
+  private void OnTriggerEnter2D(Collider2D col) {
+    if (!col.CompareTag("Player")) {
       return;
     }
 
-    print("Player in range!");
-    this.player = other.transform;
+    print("Player found!");
+    this.player = col.transform;
   }
 
-  private void OnTriggerExit2D(Collider2D other) {
-    if (!other.CompareTag("Player")) {
+  private void OnTriggerExit2D(Collider2D col) {
+    if (!col.CompareTag("Player")) {
       return;
     }
 
-    print("Player escaped!!");
+    print("Player escaped!");
     this.player = null;
+  }
+
+  private void OnDrawGizmosSelected() {
+    UnityEditor.Handles.DrawWireDisc(this.transform.position, Vector3.forward, this.attackRange);
   }
 }
