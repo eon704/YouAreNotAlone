@@ -47,6 +47,9 @@ TagManager:
   - name: Environment
     uniqueID: 3526403447
     locked: 0
-  - name: New Layer 3
+  - name: Enemy
     uniqueID: 691875859
+    locked: 0
+  - name: Player
+    uniqueID: 2204452483
     locked: 0
