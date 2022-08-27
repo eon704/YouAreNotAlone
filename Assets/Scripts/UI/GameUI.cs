@@ -27,16 +27,13 @@ namespace UI {
       this.rectTransform = this.GetComponent<RectTransform>();
     }
 
-    private void Update() {
-      if (Input.GetKeyDown(KeyCode.Escape)) {
-        this.pausePanel.SetActive(!this.pausePanel.activeSelf);
-      }
-    }
     #endregion
 
     public void Initialize(GameManager gameManager) {
       gameManager.OnLevelComplete += this.OnPlayerVictory;
       gameManager.OnLevelFailed += this.OnPlayerLoss;
+      gameManager.OnGamePaused += this.OpenPauseMenu;
+      gameManager.OnGameUnpaused += this.ClosePauseMenu;
     }
 
     public void InstantiateNewHealthBar(IDamageable target, Transform targetTransform) {
@@ -45,19 +42,28 @@ namespace UI {
       healthBar.SetHealthBarData(target, targetTransform, this.rectTransform, target.MaxHealth);
     }
 
-    public void ClosePauseMenu() {
-      print("Closing menu");
-      this.pausePanel.SetActive(false);
+    public void RestartLevel() {
+      LevelManager.ReloadScene();
+    }
+
+    public void LoadNextLevel() {
+      LevelManager.LoadNextLevel();
     }
 
     public void QuitToMainMenu() {
-      print("Quitting to menu");
       LevelManager.LoadScene("MainMenu");
     }
 
     public void QuitToDesktop() {
-      print("Quitting");
       LevelManager.Exit();
+    }
+
+    private void OpenPauseMenu() {
+      this.pausePanel.SetActive(true);
+    }
+
+    private void ClosePauseMenu() {
+      this.pausePanel.SetActive(false);
     }
 
     private void OnPlayerLoss() {
