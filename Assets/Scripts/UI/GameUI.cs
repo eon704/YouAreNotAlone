@@ -1,4 +1,6 @@
+using Characters;
 using Interfaces;
+using Managers;
 using UnityEngine;
 
 namespace UI {
@@ -7,10 +9,9 @@ namespace UI {
 
     [SerializeField] private Transform healthBarsParent;
     [SerializeField] private GameObject healthBarPrefab;
-    // [SerializeField] private GameObject winPanel;
-    // [SerializeField] private GameObject deathPanel;
+    [SerializeField] private GameObject winPanel;
+    [SerializeField] private GameObject lossPanel;
 
-    private Player player;
     private RectTransform rectTransform;
 
     void Awake() {
@@ -24,11 +25,10 @@ namespace UI {
       this.rectTransform = this.GetComponent<RectTransform>();
     }
 
-    // public void Initialize(Game game, Player newPlayer) {
-    //   this.player = newPlayer;
-    //   this.player.OnDeath += this.OnPlayerDeath;
-    //   game.OnPlayerVictory += this.OnPlayerVictory;
-    // }
+    public void Initialize(GameManager gameManager) {
+      gameManager.OnLevelComplete += this.OnPlayerVictory;
+      gameManager.OnLevelFailed += this.OnPlayerLoss;
+    }
 
     public void InstantiateNewHealthBar(IDamageable target, Transform targetTransform) {
       GameObject healthBarObject = Instantiate(this.healthBarPrefab, this.healthBarsParent);
@@ -36,14 +36,12 @@ namespace UI {
       healthBar.SetHealthBarData(target, targetTransform, this.rectTransform, target.MaxHealth);
     }
 
-    // private void OnPlayerDeath(IDamageable damageable) {
-    //   this.player = null;
-    //   this.deathPanel.SetActive(true);
-    // }
-    //
-    // private void OnPlayerVictory() {
-    //   this.winPanel.SetActive(true);
-    //   this.player.GameWon();
-    // }
+    private void OnPlayerLoss() {
+      this.lossPanel.SetActive(true);
+    }
+
+    private void OnPlayerVictory() {
+      this.winPanel.SetActive(true);
+    }
   }
 }
