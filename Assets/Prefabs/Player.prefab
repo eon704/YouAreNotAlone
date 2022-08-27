@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2582125031643203943}
   - component: {fileID: 2582125031643203936}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 2582125032557624156}
   - component: {fileID: 2582125032557624157}
   - component: {fileID: 2582125032557624158}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -250,3 +250,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 5
   speed: 5
+  damage: 1
+  attackRange: 3
+  attackCooldown: 0.5

@@ -1,8 +1,10 @@
 using System.Collections;
+using Interfaces;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : MonoBehaviour, IDamageable {
 
+  [SerializeField] private int health;
   [SerializeField] private float speed = 1f;
   [SerializeField] private int damage = 1;
   [SerializeField] private float attackRange = 2f;
@@ -36,7 +38,6 @@ public class Enemy : MonoBehaviour {
       return;
     }
 
-    print("Player found!");
     this.player = col.transform.GetComponent<Player>();
   }
 
@@ -45,7 +46,6 @@ public class Enemy : MonoBehaviour {
       return;
     }
 
-    print("Player escaped!");
     this.player = null;
   }
 
@@ -53,8 +53,16 @@ public class Enemy : MonoBehaviour {
     UnityEditor.Handles.DrawWireDisc(this.transform.position, Vector3.forward, this.attackRange);
   }
 
-  // Private methods
+  // Public methods
+  public void TakeDamage(int amount) {
+    this.health -= amount;
 
+    if (this.health <= 0) {
+      Destroy(this.gameObject);
+    }
+  }
+
+  // Private methods
   private void StartAttack() {
     if (!this.isOnAttackCooldown) {
       this.StartCoroutine(this.Attack());
@@ -62,7 +70,6 @@ public class Enemy : MonoBehaviour {
   }
 
   private IEnumerator Attack() {
-    print("Attacking");
     this.player.TakeDamage(this.damage);
     this.isOnAttackCooldown = true;
 
