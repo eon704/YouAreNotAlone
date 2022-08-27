@@ -1,6 +1,8 @@
 using System.Collections;
 using Interfaces;
+using UI;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour, IDamageable {
 
@@ -9,15 +11,20 @@ public class Enemy : MonoBehaviour, IDamageable {
   [SerializeField] private int damage = 1;
   [SerializeField] private float attackRange = 2f;
   [SerializeField] private float attackCooldown = 4f;
+
+  public int MaxHealth => this.health;
+  public UnityAction<int> OnHealthChanged { get; set; }
+  public UnityAction OnDeath { get; set; }
+
   private Rigidbody2D rb2d;
 
   private Player player;
-
   private bool isOnAttackCooldown;
 
   // Unity Callbacks
   private void Start() {
     this.rb2d = this.GetComponent<Rigidbody2D>();
+    GameUI.Instance.InstantiateNewHealthBar(this, this.transform);
   }
 
   private void FixedUpdate() {
@@ -57,8 +64,10 @@ public class Enemy : MonoBehaviour, IDamageable {
   // Public methods
   public void TakeDamage(int amount) {
     this.health -= amount;
+    this.OnHealthChanged?.Invoke(this.health);
 
     if (this.health <= 0) {
+      this.OnDeath?.Invoke();
       Destroy(this.gameObject);
     }
   }
