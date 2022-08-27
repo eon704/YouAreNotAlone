@@ -1,14 +1,16 @@
 using System.Collections;
 using Interfaces;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
 
 public class Player : MonoBehaviour {
-
   [SerializeField] private float speed = 1f;
   [SerializeField] private int damage = 1;
   [SerializeField] private float attackRange = 2f;
   [SerializeField] private float attackCooldown = 4f;
+
+  public UnityAction<int> OnHealthChanged;
 
   private Rigidbody2D rb2d;
   private Light2D soulLight;
@@ -22,6 +24,7 @@ public class Player : MonoBehaviour {
     set {
       this.groupMembersCount = value;
       this.soulLight.pointLightOuterRadius = 6 + this.groupMembersCount;
+      this.OnHealthChanged?.Invoke(this.groupMembersCount);
     }
   }
 
@@ -31,6 +34,7 @@ public class Player : MonoBehaviour {
   private void Start() {
     this.rb2d = this.GetComponent<Rigidbody2D>();
     this.soulLight = this.GetComponentInChildren<Light2D>();
+    this.Health = 1;
   }
 
   private void Update() {

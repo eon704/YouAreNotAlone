@@ -47,6 +47,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     }
 
     this.player = null;
+    this.rb2d.velocity = Vector2.zero;
   }
 
   private void OnDrawGizmosSelected() {
