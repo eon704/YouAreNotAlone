@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace UI {
-  public class PlayerHealth: MonoBehaviour {
+  public class PlayerHealthUI: MonoBehaviour {
     [SerializeField] private Player player;
     [SerializeField] private Transform healthIconContainer;
     [SerializeField] private GameObject healthIconPrefab;
