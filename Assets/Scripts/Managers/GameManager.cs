@@ -25,12 +25,10 @@ namespace Managers {
     }
 
     public void LevelComplete() {
-      print("Won!");
       this.OnLevelComplete?.Invoke();
     }
 
     public void LevelFailed() {
-      print("Lost");
       this.OnLevelFailed?.Invoke();
     }
   }
