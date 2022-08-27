@@ -12,12 +12,11 @@ namespace Managers {
     public UnityAction OnLevelFailed;
 
     private void Awake() {
-      if (Instance == null) {
-        Instance = this;
-      } else {
-        Debug.LogWarning("Destroying duplicate instance of a Singleton.");
-        Destroy(this.gameObject);
+      if (Instance != null) {
+        Debug.LogWarning("Destroying duplicate instance of GameManager!");
       }
+      
+      Instance = this;
     }
 
     public void Start() {

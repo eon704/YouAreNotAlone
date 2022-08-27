@@ -1,4 +1,3 @@
-using Characters;
 using Interfaces;
 using Managers;
 using UnityEngine;
@@ -9,12 +8,15 @@ namespace UI {
 
     [SerializeField] private Transform healthBarsParent;
     [SerializeField] private GameObject healthBarPrefab;
+    [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject lossPanel;
 
     private RectTransform rectTransform;
 
-    void Awake() {
+    #region Unity Callbacks
+
+    private void Awake() {
       if (Instance == null) {
         Instance = this;
       } else {
@@ -25,6 +27,13 @@ namespace UI {
       this.rectTransform = this.GetComponent<RectTransform>();
     }
 
+    private void Update() {
+      if (Input.GetKeyDown(KeyCode.Escape)) {
+        this.pausePanel.SetActive(!this.pausePanel.activeSelf);
+      }
+    }
+    #endregion
+
     public void Initialize(GameManager gameManager) {
       gameManager.OnLevelComplete += this.OnPlayerVictory;
       gameManager.OnLevelFailed += this.OnPlayerLoss;
@@ -34,6 +43,21 @@ namespace UI {
       GameObject healthBarObject = Instantiate(this.healthBarPrefab, this.healthBarsParent);
       HealthBar healthBar = healthBarObject.GetComponent<HealthBar>();
       healthBar.SetHealthBarData(target, targetTransform, this.rectTransform, target.MaxHealth);
+    }
+
+    public void ClosePauseMenu() {
+      print("Closing menu");
+      this.pausePanel.SetActive(false);
+    }
+
+    public void QuitToMainMenu() {
+      print("Quitting to menu");
+      LevelManager.LoadScene("MainMenu");
+    }
+
+    public void QuitToDesktop() {
+      print("Quitting");
+      LevelManager.Exit();
     }
 
     private void OnPlayerLoss() {

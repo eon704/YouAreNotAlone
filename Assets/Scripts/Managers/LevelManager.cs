@@ -2,14 +2,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Managers {
-  public class LevelManager: MonoBehaviour {
-    public void LoadScene(string sceneName) {
+  public static class LevelManager {
+    public static void LoadScene(string sceneName) {
       SceneManager.LoadScene(sceneName);
     }
 
-    public void Exit() {
+    public static void Exit() {
       #if UNITY_EDITOR
-        print("Application Quit was called.");
+        Debug.Log("Application Quit was called.");
       #endif
       Application.Quit();
     }
