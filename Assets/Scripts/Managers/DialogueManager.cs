@@ -50,7 +50,7 @@ namespace Managers {
 
     public void DisplayNextSentence() {
       if (this.sentences.Count <= 0) {
-        this.EndDialogue();
+        this.StartCoroutine(this.EndDialogue());
         return;
       }
 
@@ -68,9 +68,10 @@ namespace Managers {
       }
     }
 
-    private void EndDialogue() {
+    private IEnumerator EndDialogue() {
       GameManager.Instance.OnDialogueEnded?.Invoke();
       this.animator.SetTrigger(Hide);
+      yield return new WaitForSeconds(0.3f);
       this.onComplete?.Invoke();
     }
   }
