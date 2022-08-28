@@ -12,13 +12,10 @@ namespace Utilities {
       DialogueManager.Instance.StartDialogue(this.dialogue);
     }
 
-    public void SetOnComplete(UnityEvent onComplete) {
-      this.dialogue.OnComplete = onComplete;
-    }
-
     private void OnTriggerEnter2D(Collider2D col) {
       if (col.CompareTag("Player")) {
         this.TriggerDialogue();
+        this.GetComponent<Collider2D>().enabled = false;
       }
     }
   }

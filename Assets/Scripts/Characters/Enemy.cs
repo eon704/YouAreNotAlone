@@ -49,14 +49,14 @@ namespace Characters {
       this.player = col.transform.GetComponent<Player>();
     }
 
-    private void OnTriggerExit2D(Collider2D col) {
-      if (!col.CompareTag("Player")) {
-        return;
-      }
-
-      this.player = null;
-      this.rb2d.velocity = Vector2.zero;
-    }
+    // private void OnTriggerExit2D(Collider2D col) {
+    //   if (!col.CompareTag("Player")) {
+    //     return;
+    //   }
+    //
+    //   this.player = null;
+    //   this.rb2d.velocity = Vector2.zero;
+    // }
 
     private void OnDrawGizmosSelected() {
       UnityEditor.Handles.DrawWireDisc(this.transform.position, Vector3.forward, this.attackRange);

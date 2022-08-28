@@ -8,6 +8,7 @@ using UnityEngine.Rendering.Universal;
 namespace Characters {
   public class Player : MonoBehaviour {
     [SerializeField] private float speed = 1f;
+    [SerializeField] private int initialHealth = 1;
     [SerializeField] private int damage = 1;
     [SerializeField] private float attackRange = 2f;
     [SerializeField] private float attackCooldown = 4f;
@@ -35,7 +36,7 @@ namespace Characters {
     private void Start() {
       this.rb2d = this.GetComponent<Rigidbody2D>();
       this.soulLight = this.GetComponentInChildren<Light2D>();
-      this.Health = 1;
+      this.Health = this.initialHealth;
     }
 
     private void Update() {
