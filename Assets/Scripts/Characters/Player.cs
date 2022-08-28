@@ -17,6 +17,8 @@ namespace Characters {
 
     private Rigidbody2D rb2d;
     private Light2D soulLight;
+    private AudioSource audioSource;
+
     private IDamageable target;
     private bool isBlockedInput;
     private bool isOnAttackCooldown;
@@ -37,6 +39,7 @@ namespace Characters {
       this.rb2d = this.GetComponent<Rigidbody2D>();
       this.soulLight = this.GetComponentInChildren<Light2D>();
       this.Health = this.initialHealth;
+      this.audioSource = this.GetComponent<AudioSource>();
     }
 
     private void Update() {
@@ -104,6 +107,7 @@ namespace Characters {
     private IEnumerator Attack() {
       this.target.TakeDamage(this.damage);
       this.isOnAttackCooldown = true;
+      this.audioSource.Play();
 
       yield return new WaitForSeconds(this.attackCooldown);
       this.isOnAttackCooldown = false;
