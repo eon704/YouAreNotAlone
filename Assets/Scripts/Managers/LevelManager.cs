@@ -10,9 +10,9 @@ namespace Managers {
     }
 
     public static void LoadScene(string sceneName) {
-      if (sceneName == "MainMenu") {
+      if (sceneName == "MainMenu" && MusicManager.Instance != null) {
         MusicManager.Instance.PlayMenuMusic();
-      } else {
+      } else if (MusicManager.Instance != null) {
         MusicManager.Instance.PlayGameMusic();
       }
 

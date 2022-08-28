@@ -9,12 +9,14 @@ namespace Managers {
   public class DialogueManager: MonoBehaviour {
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text sentenceText;
+    [SerializeField] private AudioClip[] bookPageSounds;
 
     public static DialogueManager Instance;
 
     private Queue<string> sentences;
     private Animator animator;
     private UnityEvent onComplete;
+    private AudioSource audioSource;
 
     private static readonly int Hide = Animator.StringToHash("Hide");
     private static readonly int Show = Animator.StringToHash("Show");
@@ -31,6 +33,7 @@ namespace Managers {
     private void Start() {
       this.sentences = new Queue<string>();
       this.animator = this.GetComponent<Animator>();
+      this.audioSource = this.GetComponent<AudioSource>();
     }
 
     public void StartDialogue(Dialogue dialogue) {
@@ -53,6 +56,10 @@ namespace Managers {
         this.StartCoroutine(this.EndDialogue());
         return;
       }
+
+      int sourceIndex = Random.Range(0, this.bookPageSounds.Length);
+      this.audioSource.clip = this.bookPageSounds[sourceIndex];
+      this.audioSource.Play();
 
       string sentence = this.sentences.Dequeue();
       this.StopAllCoroutines();
