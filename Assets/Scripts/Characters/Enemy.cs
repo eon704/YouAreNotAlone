@@ -58,9 +58,11 @@ namespace Characters {
     //   this.rb2d.velocity = Vector2.zero;
     // }
 
+    #if UNITY_EDITOR
     private void OnDrawGizmosSelected() {
       UnityEditor.Handles.DrawWireDisc(this.transform.position, Vector3.forward, this.attackRange);
     }
+    #endif
 
     // Public methods
     public void TakeDamage(int amount) {

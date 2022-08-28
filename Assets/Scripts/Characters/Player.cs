@@ -59,9 +59,11 @@ namespace Characters {
       this.rb2d.MovePosition(move + this.rb2d.position);
     }
 
+    #if UNITY_EDITOR
     private void OnDrawGizmosSelected() {
       UnityEditor.Handles.DrawWireDisc(this.transform.position, Vector3.forward, this.attackRange);
     }
+    #endif
 
     #endregion
 
