@@ -1,13 +1,14 @@
-using Characters;
+using Managers;
 using UnityEngine;
 
-public class LostSoul : MonoBehaviour {
-
-  private void OnTriggerEnter2D(Collider2D other) {
-    if (other.CompareTag("Player")) {
-      other.GetComponent<Player>().AcceptNewGroupMember();
-      // col.enabled = false;
-      Destroy(this.gameObject);
+namespace Characters {
+  public class LostSoul : MonoBehaviour {
+    private void OnTriggerEnter2D(Collider2D other) {
+      if (other.CompareTag("Player")) {
+        other.GetComponent<Player>().AcceptNewGroupMember();
+        MusicManager.Instance.PlayLostSoulFound();
+        Destroy(this.gameObject);
+      }
     }
   }
 }

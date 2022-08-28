@@ -18,6 +18,7 @@ namespace Characters {
     public UnityAction OnDeath { get; set; }
 
     private Rigidbody2D rb2d;
+    private AudioSource audioSource;
 
     private Player player;
     private bool isOnAttackCooldown;
@@ -25,6 +26,7 @@ namespace Characters {
     // Unity Callbacks
     private void Start() {
       this.rb2d = this.GetComponent<Rigidbody2D>();
+      this.audioSource = this.GetComponent<AudioSource>();
       GameUI.Instance.InstantiateNewHealthBar(this, this.transform);
     }
 
@@ -85,6 +87,7 @@ namespace Characters {
     private IEnumerator Attack() {
       this.player.TakeDamage(this.damage);
       this.isOnAttackCooldown = true;
+      this.audioSource.Play();
 
       yield return new WaitForSeconds(this.attackCooldown);
       this.isOnAttackCooldown = false;

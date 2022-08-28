@@ -4,10 +4,12 @@ namespace Managers {
   public class MusicManager: MonoBehaviour {
     [SerializeField] private AudioClip menuMusic;
     [SerializeField] private AudioClip gameMusic;
+    [SerializeField] private AudioClip lostSoulFound;
 
     public static MusicManager Instance;
 
-    private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource effectsSource;
 
     private void Awake() {
       if (Instance == null) {
@@ -40,6 +42,12 @@ namespace Managers {
       this.audioSource.Stop();
       this.audioSource.clip = this.gameMusic;
       this.audioSource.Play();
+    }
+
+    public void PlayLostSoulFound() {
+      this.effectsSource.Stop();
+      this.effectsSource.clip = this.lostSoulFound;
+      this.effectsSource.Play();
     }
   }
 }

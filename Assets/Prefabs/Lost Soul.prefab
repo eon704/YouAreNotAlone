@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2668382353077756493}
   - component: {fileID: 7970208203134114339}
-  - component: {fileID: 7482556054507940651}
   - component: {fileID: 4857797228431030638}
+  - component: {fileID: 7482556054507940651}
   m_Layer: 0
   m_Name: Lost Soul
   m_TagString: Untagged
@@ -87,18 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7482556054507940651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2616677599292147494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b004c427c71f4a689de1128904a7220, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &4857797228431030638
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -115,6 +103,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.5
+--- !u!114 &7482556054507940651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2616677599292147494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b004c427c71f4a689de1128904a7220, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7435196526805162021
 GameObject:
   m_ObjectHideFlags: 0
