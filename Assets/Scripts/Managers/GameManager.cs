@@ -1,10 +1,13 @@
+using Characters;
 using UI;
 using UnityEngine;
 using UnityEngine.Events;
+using Utilities;
 
 namespace Managers {
   public class GameManager: MonoBehaviour {
     [SerializeField] private GameUI gameUI;
+    [SerializeField] private DialogueTrigger levelStartDialogueTrigger;
 
     public static GameManager Instance;
 
@@ -12,13 +15,19 @@ namespace Managers {
     public UnityAction OnLevelFailed;
     public UnityAction OnGamePaused;
     public UnityAction OnGameUnpaused;
+    public UnityAction OnDialogueStarted;
+    public UnityAction OnDialogueEnded;
 
     private bool isPaused;
+    private Player player;
 
     private void Awake() {
       if (Instance != null) {
         Debug.LogWarning("Destroying duplicate instance of GameManager!");
       }
+
+      this.OnDialogueStarted += this.OnDialogueStart;
+      this.OnDialogueEnded += this.OnDialogueEnd;
 
       Instance = this;
     }
@@ -26,6 +35,9 @@ namespace Managers {
     private void Start() {
       this.isPaused = false;
       this.gameUI.Initialize(this);
+      this.player = FindObjectOfType<Player>();
+      this.player.BlockInput();
+      this.levelStartDialogueTrigger.TriggerDialogue();
     }
 
     private void Update() {
@@ -35,6 +47,7 @@ namespace Managers {
     }
 
     public void LevelComplete() {
+      this.player.BlockInput();
       this.OnLevelComplete?.Invoke();
     }
 
@@ -60,6 +73,14 @@ namespace Managers {
       this.isPaused = true;
       Time.timeScale = 0f;
       this.OnGamePaused?.Invoke();
+    }
+
+    private void OnDialogueStart() {
+      this.player.BlockInput();
+    }
+
+    private void OnDialogueEnd() {
+      this.player.UnblockInput();
     }
   }
 }

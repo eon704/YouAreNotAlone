@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Model;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Managers {
   public class DialogueManager: MonoBehaviour {
@@ -13,6 +14,7 @@ namespace Managers {
 
     private Queue<string> sentences;
     private Animator animator;
+    private UnityEvent onComplete;
 
     private static readonly int Hide = Animator.StringToHash("Hide");
     private static readonly int Show = Animator.StringToHash("Show");
@@ -32,9 +34,10 @@ namespace Managers {
     }
 
     public void StartDialogue(Dialogue dialogue) {
-      Debug.Log("Starting conversation with " + dialogue.name);
+      GameManager.Instance.OnDialogueStarted?.Invoke();
 
       this.sentences.Clear();
+      this.onComplete = dialogue.OnComplete;
 
       this.nameText.text = dialogue.name;
       foreach (string sentence in dialogue.sentences) {
@@ -66,7 +69,9 @@ namespace Managers {
     }
 
     private void EndDialogue() {
+      GameManager.Instance.OnDialogueEnded?.Invoke();
       this.animator.SetTrigger(Hide);
+      this.onComplete?.Invoke();
     }
   }
 }

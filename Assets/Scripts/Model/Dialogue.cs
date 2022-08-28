@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Model {
 
@@ -8,5 +9,7 @@ namespace Model {
 
     [TextArea(3, 10)]
     public string[] sentences;
+
+    public UnityEvent OnComplete;
   }
 }

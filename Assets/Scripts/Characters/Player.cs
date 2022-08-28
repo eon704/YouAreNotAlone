@@ -17,6 +17,7 @@ namespace Characters {
     private Rigidbody2D rb2d;
     private Light2D soulLight;
     private IDamageable target;
+    private bool isBlockedInput;
     private bool isOnAttackCooldown;
     private int health = 1;
     private readonly RaycastHit2D[] targetsBuffer = new RaycastHit2D[20];
@@ -38,12 +39,16 @@ namespace Characters {
     }
 
     private void Update() {
-      if (Input.GetMouseButtonDown(0)) {
+      if (!this.isBlockedInput && Input.GetMouseButtonDown(0)) {
         this.StartAttack();
       }
     }
 
     private void FixedUpdate() {
+      if (this.isBlockedInput) {
+        return;
+      }
+
       Vector2 input = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
       if (input.sqrMagnitude > 1f) {
         input = input.normalized;
@@ -72,6 +77,14 @@ namespace Characters {
 
     public void AcceptNewGroupMember() {
       this.Health++;
+    }
+
+    public void BlockInput() {
+      this.isBlockedInput = true;
+    }
+
+    public void UnblockInput() {
+      this.isBlockedInput = false;
     }
 
     #endregion
