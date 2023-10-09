@@ -22,7 +22,7 @@ However, something happened along the way.  The Spirit found itself lost, in a d
 
 ![Dialogue](https://github.com/eon704/YouAreNotAlone/assets/16372290/d8e0cba5-2e1d-4a6c-a255-55a9155a2e5f)
 
-![Battle](https://github.com/eon704/YouAreNotAlone/assets/16372290/b2f7bebe-184c-4594-9c59-a5a8c005a906)
+https://github.com/eon704/YouAreNotAlone/assets/16372290/e2e44b71-a311-4fb2-a2f6-fd90565adad4
 
 
 # Notes:
